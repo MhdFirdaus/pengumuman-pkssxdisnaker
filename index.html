@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pengumuman Kelulusan PKSS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+    background:#f5f9ff;
+    color:#0f172a;
+}
+
+/* ================= CANVAS INTRO ================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#0f4cbd,#1b74ff,#003ea8);
+    z-index:9999;
+    overflow:hidden;
+}
+
+canvas{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.intro-content{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    width:160px;
+    margin-bottom:25px;
+    animation:float 3s ease-in-out infinite;
+    filter:drop-shadow(0 10px 25px rgba(0,0,0,0.3));
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-12px);}
+    100%{transform:translateY(0px);}
+}
+
+.intro-content h1{
+    color:white;
+    max-width:900px;
+    font-size:clamp(24px,4vw,48px);
+    line-height:1.4;
+    margin-bottom:20px;
+    font-weight:700;
+}
+
+.intro-content p{
+    color:#dbeafe;
+    font-size:18px;
+    margin-bottom:40px;
+}
+
+.open-btn{
+    padding:18px 40px;
+    border:none;
+    border-radius:60px;
+    background:white;
+    color:#0f4cbd;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.4s;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+.open-btn:hover{
+    transform:scale(1.05);
+    background:#dbeafe;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    min-height:100vh;
+    padding:60px 20px 80px;
+    display:none;
+    background:
+    radial-gradient(circle at top left,#bfdbfe 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#93c5fd 0%,transparent 25%),
+    #f8fbff;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.header img{
+    width:140px;
+    margin-bottom:20px;
+}
+
+.header h2{
+    font-size:clamp(24px,4vw,42px);
+    color:#0f172a;
+    margin-bottom:15px;
+}
+
+.header p{
+    color:#475569;
+    font-size:18px;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:0.4s;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:6px;
+    background:linear-gradient(90deg,#2563eb,#38bdf8);
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.02);
+}
+
+.card h3{
+    color:#0f172a;
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.card span{
+    color:#64748b;
+    font-size:15px;
+}
+
+.names{
+    margin-top:25px;
+    display:none;
+    animation:fade 0.5s ease;
+}
+
+.names ul{
+    list-style:none;
+}
+
+.names li{
+    padding:12px 15px;
+    margin-bottom:10px;
+    background:#eff6ff;
+    border-radius:12px;
+    color:#0f172a;
+    transition:0.3s;
+}
+
+.names li:hover{
+    transform:translateX(5px);
+    background:#dbeafe;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+    margin-top:60px;
+    color:#64748b;
+    font-size:15px;
+}
+
+/* ================= OPEN EFFECT ================= */
+
+.reveal{
+    animation:reveal 1.4s forwards ease-in-out;
+}
+
+@keyframes reveal{
+    0%{
+        clip-path:circle(100% at center);
+        opacity:1;
+    }
+    100%{
+        clip-path:circle(0% at center);
+        opacity:0;
+        visibility:hidden;
+    }
+}
+
+@media(max-width:600px){
+
+    .card{
+        padding:25px;
+    }
+
+    .intro-content p{
+        font-size:15px;
+    }
+
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<section id="intro">
+
+    <canvas id="bg"></canvas>
+
+    <div class="intro-content">
+        <img class="logo" src="https://karir-production.nos.jkt-1.neo.id/logos/05/9018805/New_Logo_PKSS_-_BIRU.png">
+
+        <h1>
+            Pengumuman Kelulusan Wawancara<br>
+            Walk In Interview PKSS X DISNAKER Kota Pekanbaru
+        </h1>
+
+        <p>
+            Klik tombol di bawah untuk melihat hasil pengumuman
+        </p>
+
+        <button class="open-btn" id="openBtn">
+            LIHAT PENGUMUMAN
+        </button>
+    </div>
+</section>
+
+<!-- MAIN -->
+<section class="main" id="mainContent">
+
+    <div class="container">
+
+        <div class="header">
+            <img src="https://karir-production.nos.jkt-1.neo.id/logos/05/9018805/New_Logo_PKSS_-_BIRU.png">
+
+            <h2>
+                Pengumuman Kelulusan
+            </h2>
+
+            <p>
+                Klik pada posisi untuk melihat daftar nama peserta yang lulus
+            </p>
+        </div>
+
+        <div class="cards">
+
+            <!-- BFA -->
+            <div class="card">
+                <h3>BFA</h3>
+                <span>6 Peserta Lulus</span>
+
+                <div class="names">
+                    <ul>
+                        <li>indria olyuha sinata</li>
+                        <li>Neha Mellacia</li>
+                        <li>indri w</li>
+                        <li>Rizki Wulandari n</li>
+                        <li>bethania Simangonsong</li>
+                        <li>Rita</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CBA & BFA -->
+            <div class="card">
+                <h3>CBA & BFA</h3>
+                <span>2 Peserta Lulus</span>
+
+                <div class="names">
+                    <ul>
+                        <li>Zulin Febbrianti</li>
+                        <li>Mesi Sari</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FRONTLINER -->
+            <div class="card">
+                <h3>FRONTLINER</h3>
+                <span>7 Peserta Lulus</span>
+
+                <div class="names">
+                    <ul>
+                        <li>Nurul annisa</li>
+                        <li>Tiara Oktari</li>
+                        <li>Muhammad Fernanda</li>
+                        <li>Iffa Setiana</li>
+                        <li>Nuraini Aprilia</li>
+                        <li>Raja ayattul putra</li>
+                        <li>della zullianda ramadhani</li>
+                        <li>todoan alvito napitupulu</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PETUGAS IT -->
+            <div class="card">
+                <h3>PETUGAS IT</h3>
+                <span>3 Peserta Lulus</span>
+
+                <div class="names">
+                    <ul>
+                        <li>Fahrul Hidayat</li>
+                        <li>Mohammad Anif</li>
+                        <li>Yoga Adi Prakoso</li>
+                        <li>afif fathih</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FIELD COLLECTION -->
+            <div class="card">
+                <h3>Field Collection</h3>
+                <span>2 Peserta Lulus</span>
+
+                <div class="names">
+                    <ul>
+                        <li>Rizki Kurniawan</li>
+                        <li>asrizal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CBA -->
+            <div class="card">
+                <h3>CBA</h3>
+                <span>1 Peserta Lulus</span>
+
+                <div class="names">
+                    <ul>
+                        <li>intan sri rezeky</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            © 2026 PKSS X DISNAKER Kota Pekanbaru
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+/* ================= OPEN ANIMATION ================= */
+
+const openBtn = document.getElementById("openBtn");
+const intro = document.getElementById("intro");
+const main = document.getElementById("mainContent");
+
+openBtn.addEventListener("click", () => {
+
+    intro.classList.add("reveal");
+
+    setTimeout(() => {
+        intro.style.display = "none";
+        main.style.display = "block";
+
+        window.scrollTo({
+            top:0,
+            behavior:'smooth'
+        });
+
+    },1200);
+});
+
+/* ================= CARD TOGGLE ================= */
+
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const names = card.querySelector(".names");
+
+        document.querySelectorAll(".names").forEach(item => {
+
+            if(item !== names){
+                item.style.display = "none";
+            }
+
+        });
+
+        names.style.display =
+        names.style.display === "block"
+        ? "none"
+        : "block";
+
+    });
+
+});
+
+/* ================= PARTICLE CANVAS ================= */
+
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle{
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 4 + 1;
+        this.dx = (Math.random() - 0.5) * 1;
+        this.dy = (Math.random() - 0.5) * 1;
+    }
+
+    draw(){
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.fill();
+    }
+
+    update(){
+        this.x += this.dx;
+        this.y += this.dy;
+
+        if(this.x < 0 || this.x > canvas.width){
+            this.dx *= -1;
+        }
+
+        if(this.y < 0 || this.y > canvas.height){
+            this.dy *= -1;
+        }
+
+        this.draw();
+    }
+}
+
+for(let i=0;i<120;i++){
+    particles.push(new Particle());
+}
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p => p.update());
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+});
+
+</script>
+
+</body>
+</html>
